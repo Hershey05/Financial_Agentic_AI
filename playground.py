@@ -1,19 +1,18 @@
 import openai
-from phidata.agent import Agent
-import phidata.api_key
-from phidata.model.openai import OpenAIChat
-from phidata.tools.yfinance import YFinanceTools
-from phidata.tools.duckduckgo import DuckDuckGo
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.yfinance import YFinanceTools
+from phi.tools.duckduckgo import DuckDuckGo
 from dotenv import load_dotenv
-from phidata.model.groq import Groq
-
+from phi.model.groq import Groq
+import uvicorn
 import os
-import phidata
-from phidata.playground import Playground, serve_playgraound_app
+import phi
+from phi.playground import Playground, serve_playground_app
 #Load enviornment variables from .env file
 load_dotenv()
 
-phidata.api=os.getenv("phidata_API_KEY")
+phi.api=os.getenv("PHI_API_KEY")
 
 ##web search agent
 web_search_agent=Agent(
@@ -44,4 +43,4 @@ finance_agent=Agent(
 app=Playground(agents=[finance_agent,web_search_agent]).get_app()
 
 if __name__=="__main__":
-    serve_playgraound_app("playground:app",reload=True)
+    serve_playground_app("playground:app",reload=True)
